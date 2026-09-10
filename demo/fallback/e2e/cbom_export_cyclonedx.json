@@ -1,0 +1,1233 @@
+{
+  "components": [
+    {
+      "bom-ref": "BomRef.40106153361435914.5322671335556082",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 5,
+          "parameterSetIdentifier": "256",
+          "primitive": "block-cipher"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "bin:demo_pqc_target.bin:AES-SBOX:AES-256",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "binary"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "256"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "demo_pqc_target.bin"
+        },
+        {
+          "name": "qguardian:evidenceOffset",
+          "value": "344"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "5"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "symmetric-cipher"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "88"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S3"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "binary"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.9822634504617408.4926215017249028",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 5,
+          "parameterSetIdentifier": "3072",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "bin:demo_pqc_target.bin:LIBOQS-PQC-INTERFACE:LIBOQS-PQC-INTERFACE",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "binary"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "256"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "demo_pqc_target.bin"
+        },
+        {
+          "name": "qguardian:evidenceOffset",
+          "value": "192"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "5"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "98"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "binary"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "3072"
+    },
+    {
+      "bom-ref": "BomRef.7938316736801575.8504871835425353",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "128",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "bin:demo_pqc_target.bin:MD5-CONSTANTS:MD5",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "binary"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "64"
+        },
+        {
+          "name": "qguardian:divergenceFlag",
+          "value": "DIV_CONTAINER_MODERN_VS_BINARY_MD5"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "demo_pqc_target.bin"
+        },
+        {
+          "name": "qguardian:evidenceOffset",
+          "value": "376"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "12"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S1"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "binary"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "128"
+    },
+    {
+      "bom-ref": "BomRef.4769971848824781.7637628318661188",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 3,
+          "parameterSetIdentifier": "ML-KEM-768",
+          "primitive": "kem"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "bin:demo_pqc_target.bin:ML-KEM-768-NTT:ML-KEM-768",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "binary"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "192"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "demo_pqc_target.bin"
+        },
+        {
+          "name": "qguardian:evidenceOffset",
+          "value": "291"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:mode",
+          "value": "FIPS-203"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "3"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "98"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S1"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "binary"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "1184"
+    },
+    {
+      "bom-ref": "BomRef.7327709448522559.091987350921644",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 3,
+          "parameterSetIdentifier": "3072",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:ca-certificates-bundle:20260413-r0:CA-CERTIFICATES-BUNDLE-20260413-r0",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "112"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "alpine:3.20:pkg:apk/alpine/ca-certificates-bundle@20260413-r0?arch=x86_64&distro=3.20.10"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "3"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "public-key-encryption"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "50"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "3072"
+    },
+    {
+      "bom-ref": "BomRef.04274580625331981.7465646471876886",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 3,
+          "parameterSetIdentifier": "3072",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:ca-certificates:20230506-r0:CA-CERTIFICATES-20230506-r0",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "112"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "image:nginx:1.24-alpine"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "3"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "public-key-encryption"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "50"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "3072"
+    },
+    {
+      "bom-ref": "BomRef.5067688771632216.22585742087601424",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "2048",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:cryptography:41.0.7:CRYPTOGRAPHY-41.0.7",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "256"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\demo\\container-fixture:pkg:pypi/cryptography@41.0.7"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "symmetric-cipher"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "85"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "2048"
+    },
+    {
+      "bom-ref": "BomRef.6740888522312308.1957595645051028",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 3,
+          "parameterSetIdentifier": "3072",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:libcrypto3:3.3.7-r0:LIBCRYPTO3-3.3.7-r0",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "256"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "alpine:3.20:pkg:apk/alpine/libcrypto3@3.3.7-r0?arch=x86_64&distro=3.20.10"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "3"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "90"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "3072"
+    },
+    {
+      "bom-ref": "BomRef.29224703271884933.13381014766333843",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 3,
+          "parameterSetIdentifier": "3072",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:libssl3:3.3.7-r0:LIBSSL3-3.3.7-r0",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "112"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "alpine:3.20:pkg:apk/alpine/libssl3@3.3.7-r0?arch=x86_64&distro=3.20.10"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "True"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "3"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "50"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "3072"
+    },
+    {
+      "bom-ref": "BomRef.48651641441033144.8709269067851314",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "2048",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:openssl:3.1.4-r0:OPENSSL-3.1.4-r0",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "128"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "image:nginx:1.24-alpine"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "55"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "2048"
+    },
+    {
+      "bom-ref": "BomRef.8148541076872305.06761812868323991",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "2048",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "container:pycryptodome:3.19.1:PYCRYPTODOME-3.19.1",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "112"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\demo\\container-fixture:pkg:pypi/pycryptodome@3.19.1"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "symmetric-cipher"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "50"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "container"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "2048"
+    },
+    {
+      "bom-ref": "BomRef.3190582605476844.8619572042133736",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 1,
+          "parameterSetIdentifier": "256",
+          "primitive": "block-cipher"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:migration.py:76:AES-ECB",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "64"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\migration.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "76"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "1"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "symmetric-cipher"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "25"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.18600578038179327.3944054355320069",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:rag_advisor.py:68:MD5",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "64"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\rag_advisor.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "68"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "15"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.040180548063959876.9370374511195935",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "hash"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:11:SHA-1",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "11"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "30"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.6830789607728522.7265933658768733",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "hash"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:11:SHA-1",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\backend\\app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "11"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "30"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.6983166841048679.20352215326614942",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "2048",
+          "primitive": "pke"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:15:RSA-1024",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "15"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "public-key-encryption"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "10"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "2048"
+    },
+    {
+      "bom-ref": "BomRef.6165314672679444.49031792282703224",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "2048",
+          "primitive": "pke"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:15:RSA-1024",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\backend\\app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "15"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "public-key-encryption"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "10"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "2048"
+    },
+    {
+      "bom-ref": "BomRef.19110450276436186.2846471641791892",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:19:TLS-1.0/1.1",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "19"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "20"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.7216977072684633.2510384865326101",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:19:TLS-1.0/1.1",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "80"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\backend\\app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "19"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "key-agreement"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "20"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.26161000064183393.6902115791318996",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:7:MD5",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "64"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "7"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "15"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    },
+    {
+      "bom-ref": "BomRef.42457175706804573.6970808874055676",
+      "cryptoProperties": {
+        "algorithmProperties": {
+          "nistQuantumSecurityLevel": 0,
+          "parameterSetIdentifier": "256",
+          "primitive": "key-agree"
+        },
+        "assetType": "algorithm"
+      },
+      "name": "src:sample_target.py:7:MD5",
+      "properties": [
+        {
+          "name": "qguardian:assetType",
+          "value": "library"
+        },
+        {
+          "name": "qguardian:classicalSecurityLevel",
+          "value": "64"
+        },
+        {
+          "name": "qguardian:evidenceFile",
+          "value": "C:\\Users\\Ojus\\Desktop\\sih\\backend\\app\\engines\\sample_target.py"
+        },
+        {
+          "name": "qguardian:evidenceLine",
+          "value": "7"
+        },
+        {
+          "name": "qguardian:isPqc",
+          "value": "False"
+        },
+        {
+          "name": "qguardian:nistQuantumSecurityLevel",
+          "value": "0"
+        },
+        {
+          "name": "qguardian:primitive",
+          "value": "hash"
+        },
+        {
+          "name": "qguardian:qtriScore",
+          "value": "15"
+        },
+        {
+          "name": "qguardian:sensitivityTier",
+          "value": "S2"
+        },
+        {
+          "name": "qguardian:sourceType",
+          "value": "static-source"
+        }
+      ],
+      "type": "cryptographic-asset",
+      "version": "256"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "BomRef.040180548063959876.9370374511195935"
+    },
+    {
+      "ref": "BomRef.04274580625331981.7465646471876886"
+    },
+    {
+      "ref": "BomRef.18600578038179327.3944054355320069"
+    },
+    {
+      "ref": "BomRef.19110450276436186.2846471641791892"
+    },
+    {
+      "ref": "BomRef.26161000064183393.6902115791318996"
+    },
+    {
+      "ref": "BomRef.29224703271884933.13381014766333843"
+    },
+    {
+      "ref": "BomRef.3190582605476844.8619572042133736"
+    },
+    {
+      "ref": "BomRef.40106153361435914.5322671335556082"
+    },
+    {
+      "ref": "BomRef.42457175706804573.6970808874055676"
+    },
+    {
+      "ref": "BomRef.4769971848824781.7637628318661188"
+    },
+    {
+      "ref": "BomRef.48651641441033144.8709269067851314"
+    },
+    {
+      "ref": "BomRef.5067688771632216.22585742087601424"
+    },
+    {
+      "ref": "BomRef.6165314672679444.49031792282703224"
+    },
+    {
+      "ref": "BomRef.6740888522312308.1957595645051028"
+    },
+    {
+      "ref": "BomRef.6830789607728522.7265933658768733"
+    },
+    {
+      "ref": "BomRef.6983166841048679.20352215326614942"
+    },
+    {
+      "ref": "BomRef.7216977072684633.2510384865326101"
+    },
+    {
+      "ref": "BomRef.7327709448522559.091987350921644"
+    },
+    {
+      "ref": "BomRef.7938316736801575.8504871835425353"
+    },
+    {
+      "ref": "BomRef.8148541076872305.06761812868323991"
+    },
+    {
+      "ref": "BomRef.9822634504617408.4926215017249028"
+    }
+  ],
+  "metadata": {
+    "timestamp": "2026-09-04T14:00:29.250952+00:00"
+  },
+  "serialNumber": "urn:uuid:308b4ff6-e6e5-4b11-ab38-b7fd5a03fe47",
+  "version": 1,
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6"
+}

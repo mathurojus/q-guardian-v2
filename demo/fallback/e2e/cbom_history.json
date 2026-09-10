@@ -1,0 +1,44 @@
+[
+  {
+    "scan_uuid": "5ff1a490-cd57-41e4-9914-5179341f5596",
+    "timestamp": "2026-09-04T19:30:22.978004",
+    "total_assets": 3,
+    "pqc_assets": 3,
+    "critical_risks": 0
+  },
+  {
+    "scan_uuid": "02bafd9d-9ef6-470f-90a8-e08b60b1ada9",
+    "timestamp": "2026-09-04T19:30:14.800109",
+    "total_assets": 6,
+    "pqc_assets": 0,
+    "critical_risks": 5
+  },
+  {
+    "scan_uuid": "21472c31-1780-4081-99c5-534245086b52",
+    "timestamp": "2026-09-04T19:27:08.908583",
+    "total_assets": 4,
+    "pqc_assets": 3,
+    "critical_risks": 1
+  },
+  {
+    "scan_uuid": "288b7f1c-4a28-4c03-b79c-b91f40589c7f",
+    "timestamp": "2026-09-04T19:27:08.879645",
+    "total_assets": 2,
+    "pqc_assets": 1,
+    "critical_risks": 0
+  },
+  {
+    "scan_uuid": "e8cfc081-dc5c-469c-b62c-def3f6194e04",
+    "timestamp": "2026-09-04T19:27:08.594161",
+    "total_assets": 2,
+    "pqc_assets": 0,
+    "critical_risks": 0
+  },
+  {
+    "scan_uuid": "bcd6b343-cac1-4bf9-8900-51f500cd663b",
+    "timestamp": "2026-09-04T19:27:06.499134",
+    "total_assets": 4,
+    "pqc_assets": 0,
+    "critical_risks": 3
+  }
+]

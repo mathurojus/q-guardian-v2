@@ -1,0 +1,8 @@
+The current binary doesn't have a section header
+[seed] wiped C:\Users\Ojus\Desktop\sih\backend\qguardian.db
+[seed] semgrep  : 4 assets
+[seed] trivy    : 2 assets
+[seed] container: 2 assets
+[seed] binary   : 4 assets (ML-KEM NTT detection)
+[seed] reconcile: evaluated=12 divergences=1 maturity=Level 3: Partially Agile (Minor Vector Divergence)
+[seed] DONE — 12 assets, 12 findings in 4 scanner batches. DB ready for demo.

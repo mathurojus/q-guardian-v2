@@ -1,0 +1,98 @@
+{
+  "status": "completed",
+  "before": {
+    "scan_uuid": "02bafd9d-9ef6-470f-90a8-e08b60b1ada9",
+    "timestamp": "2026-09-04T19:30:14.800109",
+    "total": 6
+  },
+  "after": {
+    "scan_uuid": "5ff1a490-cd57-41e4-9914-5179341f5596",
+    "timestamp": "2026-09-04T19:30:22.978004",
+    "total": 3
+  },
+  "net_change": -3,
+  "added_count": 3,
+  "removed_count": 6,
+  "added": [
+    {
+      "name": "container:ca-certificates-bundle:20260413-r0",
+      "algorithm": "CA-CERTIFICATES-BUNDLE-20260413-r0",
+      "source_type": "container",
+      "key_size": 3072,
+      "qtri_score": 50,
+      "is_pqc": true
+    },
+    {
+      "name": "container:libcrypto3:3.3.7-r0",
+      "algorithm": "LIBCRYPTO3-3.3.7-r0",
+      "source_type": "container",
+      "key_size": 3072,
+      "qtri_score": 90,
+      "is_pqc": true
+    },
+    {
+      "name": "container:libssl3:3.3.7-r0",
+      "algorithm": "LIBSSL3-3.3.7-r0",
+      "source_type": "container",
+      "key_size": 3072,
+      "qtri_score": 50,
+      "is_pqc": true
+    }
+  ],
+  "removed": [
+    {
+      "name": "src:migration.py:76",
+      "algorithm": "AES-ECB",
+      "source_type": "static-source",
+      "key_size": 256,
+      "qtri_score": 25,
+      "is_pqc": false
+    },
+    {
+      "name": "src:rag_advisor.py:68",
+      "algorithm": "MD5",
+      "source_type": "static-source",
+      "key_size": 256,
+      "qtri_score": 15,
+      "is_pqc": false
+    },
+    {
+      "name": "src:sample_target.py:11",
+      "algorithm": "SHA-1",
+      "source_type": "static-source",
+      "key_size": 256,
+      "qtri_score": 30,
+      "is_pqc": false
+    },
+    {
+      "name": "src:sample_target.py:15",
+      "algorithm": "RSA-1024",
+      "source_type": "static-source",
+      "key_size": 2048,
+      "qtri_score": 10,
+      "is_pqc": false
+    },
+    {
+      "name": "src:sample_target.py:19",
+      "algorithm": "TLS-1.0/1.1",
+      "source_type": "static-source",
+      "key_size": 256,
+      "qtri_score": 20,
+      "is_pqc": false
+    },
+    {
+      "name": "src:sample_target.py:7",
+      "algorithm": "MD5",
+      "source_type": "static-source",
+      "key_size": 256,
+      "qtri_score": 15,
+      "is_pqc": false
+    }
+  ],
+  "added_by_source": {
+    "container": 3
+  },
+  "removed_by_source": {
+    "static-source": 6
+  }
+}

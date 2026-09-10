@@ -1,0 +1,23 @@
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\Ojus\AppData\Roaming\Python\Python314\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     Started server process [4304]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\Ojus\AppData\Roaming\Python\Python314\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+login failed
+Traceback (most recent call last):
+  File "C:\Users\Ojus\Desktop\sih\backend\app\main.py", line 91, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Invalid username or password.

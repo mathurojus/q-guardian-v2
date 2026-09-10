@@ -1,0 +1,6 @@
+# Demo container dependency manifest — scanned by Trivy (trivy fs)
+# Cryptographic packages deliberately pinned to pre-PQC versions.
+cryptography==41.0.7
+pycryptodome==3.19.1
+cffi==1.16.0
+six==1.16.0

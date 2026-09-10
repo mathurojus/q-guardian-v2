@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-slate-50 min-h-screen text-slate-700 font-sans isolate antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(36, 87, 214, 0.16);
+    color: #07152b;
+  }
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-ligatures: none;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+/* Logotype — Inter heavy, tabular and precise */
+.font-display {
+  font-family: 'Inter', 'Orbitron', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Micro-labels: calm uppercase tracking */
+.qg-label {
+  @apply text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400;
+}
+
+.qg-heading {
+  @apply text-sm font-bold tracking-tight text-navy;
+}
+
+/* ── Surfaces ───────────────────────────────────────────────────────────── */
+/* Flat enterprise card: white surface, 1px border, minimal shadow */
+.glass-card {
+  @apply bg-white border border-slate-200 rounded-xl shadow-[0_1px_2px_rgba(11,31,58,0.05)];
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.glass-card:hover {
+  @apply border-slate-300;
+}
+
+/* Slightly stronger elevation for hero blocks */
+.panel-elevated {
+  @apply bg-white border border-slate-200 rounded-xl shadow-[0_1px_2px_rgba(11,31,58,0.05),0_12px_28px_-24px_rgba(11,31,58,0.18)];
+}
+
+/* ── Brand actions ──────────────────────────────────────────────────────── */
+.qg-button {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cobalt-600 text-white text-xs font-semibold tracking-wide px-5 py-2.5
+         transition-colors duration-150 hover:bg-cobalt-700 active:bg-cobalt-800 disabled:opacity-40 disabled:pointer-events-none
+         shadow-[0_1px_2px_rgba(29,72,176,0.35)];
+}
+
+.qg-button-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-xs font-semibold tracking-wide px-5 py-2.5
+         transition-colors duration-150 hover:border-slate-400 hover:text-navy disabled:opacity-50;
+}
+
+/* Legacy aliases — mapped onto the enterprise palette */
+.qg-header-primary {
+  @apply bg-navy text-white font-semibold uppercase py-1 px-4 tracking-wide;
+}
+
+.qg-header-accent {
+  @apply bg-cobalt-600 text-white font-semibold uppercase py-1 px-4 tracking-wide;
+}
+
+.qg-gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cobalt-700 via-cobalt-600 to-cobalt-400;
+}
+
+.premium-border {
+  @apply border border-slate-200;
+}
+
+.inner-glow {
+  @apply shadow-[inset_0_1px_0_rgba(255,255,255,0.8)];
+}
+
+/* ── Data / chart chrome ────────────────────────────────────────────────── */
+.qg-table-head {
+  @apply text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400;
+}
+
+.qg-chip {
+  @apply inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-semibold font-mono;
+}
+
+/* Scrollbar Hide Utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Slim light scrollbars everywhere else */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #cdd5e0;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #98a2b3;
+}
+
+@keyframes progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(500%); }
+}
+
+@keyframes qg-pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.qg-live-dot {
+  animation: qg-pulse-dot 2.4s ease-in-out infinite;
+}

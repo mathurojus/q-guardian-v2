@@ -1,0 +1,594 @@
+{
+  "frameworks": {
+    "rbi_csf_2": [
+      {
+        "hostname": "src:sample_target.py:7",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function MD5 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function SHA-1 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:19",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 4, Section 2.3",
+            "description": "Lack of Perfect Forward Secrecy (PFS) - HNDL Risk.",
+            "remediation": "Enable ECDHE or DHE key exchange mechanism."
+          }
+        ]
+      },
+      {
+        "hostname": "bin:demo_pqc_target.bin:MD5-CONSTANTS",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function MD5 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:migration.py:76",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "AES-ECB: block cipher in unauthenticated Electronic Codebook mode.",
+            "remediation": "Switch to AES-GCM (NIST SP 800-38D) with unique nonces."
+          }
+        ]
+      },
+      {
+        "hostname": "src:rag_advisor.py:68",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function MD5 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:7",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function MD5 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 1, Section 5.1",
+            "description": "Broken/legacy hash function SHA-1 used for security-sensitive data.",
+            "remediation": "Migrate to SHA-256/SHA-3 (FIPS 180-4 / FIPS 202) with HMAC where required."
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:19",
+        "findings": [
+          {
+            "control": "RBI CSF 2.0 Annexure 4, Section 2.3",
+            "description": "Lack of Perfect Forward Secrecy (PFS) - HNDL Risk.",
+            "remediation": "Enable ECDHE or DHE key exchange mechanism."
+          }
+        ]
+      }
+    ],
+    "nist_ir_8547": [
+      {
+        "hostname": "src:sample_target.py:7",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "key_size": 256,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "MD5 (256-bit, static-source) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "source_type": "static-source",
+        "algorithm": "SHA-1",
+        "key_size": 256,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "SHA-1 (256-bit, static-source) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:15",
+        "source_type": "static-source",
+        "algorithm": "RSA-1024",
+        "key_size": 2048,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "RSA-1024 (2048-bit, static-source) is quantum-vulnerable (public-key-encryption primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "bin:demo_pqc_target.bin:MD5-CONSTANTS",
+        "source_type": "binary",
+        "algorithm": "MD5",
+        "key_size": 128,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "MD5 (128-bit, binary) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:rag_advisor.py:68",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "key_size": 256,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "MD5 (256-bit, static-source) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:7",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "key_size": 256,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "MD5 (256-bit, static-source) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "source_type": "static-source",
+        "algorithm": "SHA-1",
+        "key_size": 256,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "SHA-1 (256-bit, static-source) is quantum-vulnerable (hash primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:15",
+        "source_type": "static-source",
+        "algorithm": "RSA-1024",
+        "key_size": 2048,
+        "findings": [
+          {
+            "control": "NIST IR 8547 \u2014 Post-Quantum Cryptography Transition",
+            "description": "RSA-1024 (2048-bit, static-source) is quantum-vulnerable (public-key-encryption primitive, NIST level 0).",
+            "remediation": "Enroll asset in the NIST IR 8547 inventory and schedule hybrid PQC deployment ahead of the priority migration deadline.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "T1 Discovery / Inventory",
+                "deadline": "Dec 2027",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T2 Prioritize + Start Migration",
+                "deadline": "2028",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T3 Priority Migration Complete",
+                "deadline": "2030",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "T4 Full Migration Complete",
+                "deadline": "2033",
+                "state": "AT-RISK"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "india_dst_tec": [
+      {
+        "hostname": "src:sample_target.py:7",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "MD5 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "source_type": "static-source",
+        "algorithm": "SHA-1",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "SHA-1 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:15",
+        "source_type": "static-source",
+        "algorithm": "RSA-1024",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "RSA-1024 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "bin:demo_pqc_target.bin:MD5-CONSTANTS",
+        "source_type": "binary",
+        "algorithm": "MD5",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "MD5 on a S1 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:rag_advisor.py:68",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "MD5 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:7",
+        "source_type": "static-source",
+        "algorithm": "MD5",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "MD5 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:11",
+        "source_type": "static-source",
+        "algorithm": "SHA-1",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "SHA-1 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hostname": "src:sample_target.py:15",
+        "source_type": "static-source",
+        "algorithm": "RSA-1024",
+        "findings": [
+          {
+            "control": "India: DST National Quantum Mission + TEC QSC Guidance",
+            "description": "RSA-1024 on a S2 asset must transition before the NQM 2031 scale-up window closes the harvest-now-decrypt-later exposure window.",
+            "remediation": "Align transition plan to NQM sectoral roadmaps; engage TEC quantum-safe cryptography testbeds for telecom-grade validation.",
+            "risk_state": "CRITICAL",
+            "timeline_flags": [
+              {
+                "milestone": "NQM Quantum-Safe Readiness",
+                "deadline": "Before 2031",
+                "state": "AT-RISK"
+              },
+              {
+                "milestone": "Supply-Chain Crypto Dependency Review",
+                "deadline": "Rolling (CERT-In / TEC QSC)",
+                "state": "OPEN"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "rbi_csf_2": 9,
+    "nist_ir_8547": 8,
+    "india_dst_tec": 8,
+    "total_flagged": 7
+  }
+}

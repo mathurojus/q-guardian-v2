@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+*.pdf
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — NEVER commit these
+.env
+backend/.env
+
+# SQLite local database
+*.db
+
+# ML / Prototype Artifacts (keep repo lightweight for cloud deployment)
+*.h5
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.csv
+*.parquet
+tmp/
+
+# Local tooling (portable scanner binaries) + logs
+backend/.tools/
+*.log

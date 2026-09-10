@@ -1,0 +1,22 @@
+{
+  "status": "completed",
+  "timestamp": "2026-09-04T19:30:25.104348",
+  "total_evaluated": 21,
+  "divergence_count": 1,
+  "updated_records": 1,
+  "crypto_agility_score": 3,
+  "maturity_label": "Level 3: Partially Agile (Minor Vector Divergence)",
+  "divergences": [
+    {
+      "type": "CONTAINER_VS_BINARY_DIVERGENCE",
+      "severity": "HIGH",
+      "divergence_flag": "DIV_CONTAINER_MODERN_VS_BINARY_MD5",
+      "asset_id": "c6d79dec-23d9-43db-b1a8-c72b87f170ae",
+      "target": "bin:demo_pqc_target.bin:MD5-CONSTANTS",
+      "declared": "Container environment supplies modern OpenSSL 3.x / base libraries",
+      "actual": "Compiled binary contains hardcoded legacy primitive: MD5 (.rodata:MD5_IV@0x00000178)",
+      "impact": "Static linking or legacy embedded routines bypass host/container security updates.",
+      "remediation": "Recompile binary artifact against shared OpenSSL 3.x and remove embedded legacy routines."
+    }
+  ]
+}

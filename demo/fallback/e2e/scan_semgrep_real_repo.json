@@ -1,0 +1,64 @@
+{
+  "status": "completed",
+  "job_id": "02bafd9d-9ef6-470f-90a8-e08b60b1ada9",
+  "scan_type": "static-source",
+  "target": "C:/Users/Ojus/Desktop/sih/backend/app",
+  "assets_found": 6,
+  "cbom_spec_version": "1.6",
+  "findings_summary": [
+    {
+      "hostname": "src:migration.py:76",
+      "algorithm": "AES-ECB",
+      "rule_id": "python-crypto-ecb-mode-cipher",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\migration.py",
+      "line": 76,
+      "qtri_score": 25,
+      "recommendation": "Switch to authenticated mode like AES-GCM or ChaCha20-Poly1305."
+    },
+    {
+      "hostname": "src:rag_advisor.py:68",
+      "algorithm": "MD5",
+      "rule_id": "python-crypto-weak-hash-md5",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\rag_advisor.py",
+      "line": 68,
+      "qtri_score": 15,
+      "recommendation": "Migrate to SHA-256 or SHA-3 (FIPS 202)."
+    },
+    {
+      "hostname": "src:sample_target.py:7",
+      "algorithm": "MD5",
+      "rule_id": "python-crypto-weak-hash-md5",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py",
+      "line": 7,
+      "qtri_score": 15,
+      "recommendation": "Migrate to SHA-256 or SHA-3 (FIPS 202)."
+    },
+    {
+      "hostname": "src:sample_target.py:11",
+      "algorithm": "SHA-1",
+      "rule_id": "python-crypto-weak-hash-sha1",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py",
+      "line": 11,
+      "qtri_score": 30,
+      "recommendation": "Migrate to SHA-256, SHA-384 or SHA-512."
+    },
+    {
+      "hostname": "src:sample_target.py:15",
+      "algorithm": "RSA-1024",
+      "rule_id": "python-crypto-weak-rsa-keysize",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py",
+      "line": 15,
+      "qtri_score": 10,
+      "recommendation": "Upgrade to RSA-3072+ minimum for classical compliance or ML-KEM-768 for PQC."
+    },
+    {
+      "hostname": "src:sample_target.py:19",
+      "algorithm": "TLS-1.0/1.1",
+      "rule_id": "python-crypto-weak-tls-protocol",
+      "file": "C:/Users/Ojus/Desktop/sih/backend/app\\engines\\sample_target.py",
+      "line": 19,
+      "qtri_score": 20,
+      "recommendation": "Enforce TLSv1.3 with quantum-safe hybrid key exchange (X25519MLKEM768)."
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+rules:
+  - id: python-crypto-weak-hash-md5
+    patterns:
+      - pattern-either:
+          - pattern: hashlib.md5(...)
+          - pattern: Crypto.Hash.MD5.new(...)
+    message: "Use of weak cryptographic hash function MD5. Vulnerable to collision attacks and post-quantum Grover speedup."
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-328: Use of Weak Hash"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "hash"
+      algorithm: "MD5"
+      classical_security: 64
+      quantum_security: 0
+      qtri_score: 15
+      recommendation: "Migrate to SHA-256 or SHA-3 (FIPS 202)."
+
+  - id: python-crypto-weak-hash-sha1
+    patterns:
+      - pattern-either:
+          - pattern: hashlib.sha1(...)
+          - pattern: Crypto.Hash.SHA1.new(...)
+    message: "Use of deprecated cryptographic hash function SHA-1. Vulnerable to chosen-prefix collision attacks."
+    languages: [python]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-328: Use of Weak Hash"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "hash"
+      algorithm: "SHA-1"
+      classical_security: 80
+      quantum_security: 0
+      qtri_score: 30
+      recommendation: "Migrate to SHA-256, SHA-384 or SHA-512."
+
+  - id: python-crypto-weak-rsa-keysize
+    patterns:
+      - pattern-either:
+          - pattern: RSA.generate(1024, ...)
+          - pattern: RSA.generate(512, ...)
+          - pattern: rsa.generate_private_key(public_exponent=..., key_size=1024, ...)
+          - pattern: rsa.generate_private_key(public_exponent=..., key_size=512, ...)
+    message: "RSA key length under 2048 bits is insecure against classical factorization and trivially broken by Shor's algorithm."
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-326: Inadequate Encryption Strength"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "public-key-encryption"
+      algorithm: "RSA-1024"
+      classical_security: 80
+      quantum_security: 0
+      qtri_score: 10
+      recommendation: "Upgrade to RSA-3072+ minimum for classical compliance or ML-KEM-768 for PQC."
+
+  - id: python-crypto-ecb-mode-cipher
+    patterns:
+      - pattern-either:
+          - pattern: AES.new(..., AES.MODE_ECB, ...)
+          - pattern: Cipher(algorithms.AES(...), modes.ECB(), ...)
+    message: "Electronic Codebook (ECB) mode produces identical ciphertext for identical plaintext blocks, leaking pattern information."
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "symmetric-cipher"
+      algorithm: "AES-ECB"
+      classical_security: 64
+      quantum_security: 32
+      qtri_score: 25
+      recommendation: "Switch to authenticated mode like AES-GCM or ChaCha20-Poly1305."
+
+  - id: python-crypto-weak-tls-protocol
+    patterns:
+      - pattern-either:
+          - pattern: ssl.PROTOCOL_TLSv1
+          - pattern: ssl.PROTOCOL_TLSv1_1
+          - pattern: ssl.PROTOCOL_SSLv23
+          - pattern: ssl.PROTOCOL_SSLv2
+          - pattern: ssl.PROTOCOL_SSLv3
+    message: "Deprecated TLS/SSL protocol version vulnerable to POODLE, BEAST, and lack of forward secrecy."
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-326: Inadequate Encryption Strength"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "key-agreement"
+      algorithm: "TLS-1.0/1.1"
+      classical_security: 80
+      quantum_security: 0
+      qtri_score: 20
+      recommendation: "Enforce TLSv1.3 with quantum-safe hybrid key exchange (X25519MLKEM768)."
+
+  - id: python-crypto-insecure-prng
+    patterns:
+      - pattern-either:
+          - pattern: random.random()
+          - pattern: random.randint(...)
+          - pattern: random.choice(...)
+    message: "Mersenne Twister (random module) is not cryptographically secure and predictable."
+    languages: [python]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "random"
+      algorithm: "PRNG-MERSENNE-TWISTER"
+      classical_security: 0
+      quantum_security: 0
+      qtri_score: 35
+      recommendation: "Use secrets module or os.urandom() for key and nonce generation."
+
+  - id: java-crypto-weak-hash-md5
+    patterns:
+      - pattern: MessageDigest.getInstance("MD5")
+    message: "Java MessageDigest MD5 is broken and cryptographically vulnerable."
+    languages: [java]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-328: Use of Weak Hash"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "hash"
+      algorithm: "MD5"
+      classical_security: 64
+      quantum_security: 0
+      qtri_score: 15
+      recommendation: "Use MessageDigest.getInstance(\"SHA-256\")."
+
+  - id: java-crypto-weak-hash-sha1
+    patterns:
+      - pattern: MessageDigest.getInstance("SHA-1")
+    message: "Java MessageDigest SHA-1 is collision-vulnerable."
+    languages: [java]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-328: Use of Weak Hash"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "hash"
+      algorithm: "SHA-1"
+      classical_security: 80
+      quantum_security: 0
+      qtri_score: 30
+      recommendation: "Use MessageDigest.getInstance(\"SHA-384\") or SHA-512."
+
+  - id: java-crypto-weak-cipher-des
+    patterns:
+      - pattern-either:
+          - pattern: Cipher.getInstance("DES")
+          - pattern: Cipher.getInstance("DESede")
+          - pattern: Cipher.getInstance("DES/...")
+    message: "DES/3DES legacy cipher detected in Java code."
+    languages: [java]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-327: Broken Crypto"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "symmetric-cipher"
+      algorithm: "DES/3DES"
+      classical_security: 56
+      quantum_security: 0
+      qtri_score: 18
+      recommendation: "Replace with Cipher.getInstance(\"AES/GCM/NoPadding\")."
+
+  - id: java-crypto-weak-rsa-keypair
+    patterns:
+      - pattern: KeyPairGenerator.getInstance("RSA")
+    message: "RSA keypair generator requires minimum 2048-bit (recommend 3072+) or BouncyCastle PQC provider."
+    languages: [java]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-326: Inadequate Encryption Strength"
+      owasp: "A02:2021 - Cryptographic Failures"
+      primitive: "public-key-encryption"
+      algorithm: "RSA"
+      classical_security: 112
+      quantum_security: 0
+      qtri_score: 45
+      recommendation: "Adopt Bouncy Castle PQC provider with Kyber/Dilithium or RSA-3072+."

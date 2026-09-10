@@ -1,0 +1,1466 @@
+================================================================================
+               Q-GUARDIAN: QUANTUM TRANSITION INTELLIGENCE PLATFORM
+                    COMPLETE PROJECT DOCUMENTATION (A-Z)
+================================================================================
+              For: Punjab National Bank (PNB) Cybersecurity Division
+              Version: 2.0 FINAL | Date: April 2026
+              Authors: PNB Internal Security Engineering Team
+================================================================================
+
+
+================================================================================
+SECTION 1: PROJECT OVERVIEW — THE BIG IDEA
+================================================================================
+
+1.1 WHAT IS Q-GUARDIAN?
+-----------------------
+Q-Guardian is a full-stack cybersecurity platform purpose-built for Punjab
+National Bank (PNB) to address the emerging threat of quantum computing
+against classical encryption. It is a "Quantum Transition Intelligence"
+tool — meaning it helps the bank understand WHERE its current cryptography
+is vulnerable, WHEN quantum computers will be able to break it, and HOW
+to migrate to quantum-safe (Post-Quantum Cryptography / PQC) algorithms
+before it's too late.
+
+In simpler terms: Quantum computers are coming. When they arrive, every
+RSA key, every ECDSA certificate, every non-PQC cipher suite used by the
+bank today will be crackable. Q-Guardian is the early-warning system and
+migration planner that ensures PNB is ready before that happens.
+
+1.2 WHY DOES THIS MATTER? (THE PROBLEM STATEMENT)
+--------------------------------------------------
+Banks like PNB handle the most sensitive data on the planet — financial
+transactions, KYC records, account credentials, internal audit data. All
+of this is currently protected by classical encryption algorithms like
+RSA-2048 and ECDSA-256. These algorithms are considered secure TODAY, but
+they will be completely broken once a Cryptographically Relevant Quantum
+Computer (CRQC) arrives. Estimates say this could happen in 5 to 15 years.
+
+The critical threat is called "Harvest Now, Decrypt Later" (HNDL):
+  - Nation-state adversaries are ALREADY recording encrypted bank traffic
+    today.
+  - They store this encrypted data in massive archives.
+  - Once quantum computers arrive, they'll decrypt ALL of it retroactively.
+  - This means data encrypted TODAY is already at risk if it has a long
+    shelf life (e.g., KYC data valid for 10+ years).
+
+Additionally, the Reserve Bank of India (RBI) has issued the Cybersecurity
+Framework (CSF) 2.0 which mandates strong encryption controls. Banks must
+demonstrate compliance with specific annexure controls around TLS versions,
+key management, and forward secrecy.
+
+1.3 WHAT IS OUR AIM?
+---------------------
+  1. DISCOVER all cryptographic assets across PNB's infrastructure
+     (subdomains, TLS certificates, cipher suites, key sizes).
+  2. SCORE each asset's quantum readiness using a proprietary metric
+     called Q-TRI (Quantum Transition Readiness Index).
+  3. PREDICT when each asset becomes vulnerable using the Mosca Countdown
+     Framework (a real academic model).
+  4. QUANTIFY the Harvest-Now-Decrypt-Later (HNDL) data exposure for
+     assets lacking Perfect Forward Secrecy.
+  5. MAP findings to RBI CSF 2.0 regulatory controls automatically.
+  6. GENERATE migration playbooks with production-ready configurations
+     for each vulnerable asset.
+  7. EXPORT board-level PDF reports and machine-readable CBOM (Cryptographic
+     Bill of Materials) in CycloneDX-compatible format.
+  8. PROVIDE a built-in rule-based security chatbot for on-demand
+     intelligence queries — without any external AI/model dependency.
+  9. SCAN API endpoints against OWASP API Security Top 10.
+  10. FEED live threat intelligence from quantum computing and
+      cybersecurity RSS sources.
+
+1.4 WHAT MAKES Q-GUARDIAN DIFFERENT?
+-------------------------------------
+  - NO EXTERNAL AI MODELS: The chatbot and all intelligence is rule-based
+    and runs entirely locally. No data leaves the bank's network. This is
+    critical for PNB's security posture.
+  - REAL SCANNING: Uses actual TLS/SSL handshakes, DNS resolution, port
+    scanning, and HTTP header analysis — not simulated data.
+  - BANK-SPECIFIC BRANDING: The entire UI follows PNB's official brand
+    guidelines (Maroon #A20C39, Gold #FBBC09) and includes PNB logos.
+  - REGULATORY-FIRST: Every finding is automatically mapped to RBI CSF 2.0
+    annexure controls with specific remediation guidance.
+  - QUANTUM-FOCUSED: Built specifically for the quantum threat, not a
+    generic vulnerability scanner.
+
+
+================================================================================
+SECTION 2: ARCHITECTURE — HOW THE SYSTEM IS STRUCTURED
+================================================================================
+
+2.1 HIGH-LEVEL ARCHITECTURE
+-----------------------------
+The project follows a classic client-server architecture:
+
+  ┌─────────────────────────────────────────────────────────┐
+  │                  FRONTEND (React + Vite)                │
+  │  Port: 5173 | React 18 + TailwindCSS 3 + Recharts      │
+  │  Components: Dashboard, AssetTable, ApiScanner,         │
+  │              HNDLSimulator, DependencyGraph,            │
+  │              ComplianceMapper, CBOMViewer, Chatbot       │
+  └──────────────────────┬──────────────────────────────────┘
+                         │ HTTP REST (axios)
+                         │ http://localhost:8000/api/v1/*
+  ┌──────────────────────┴──────────────────────────────────┐
+  │                  BACKEND (FastAPI + Python)              │
+  │  Port: 8000 | FastAPI + SQLModel + Uvicorn              │
+  │  Engines: discovery, port_scanner, api_scanner,         │
+  │           scoring, mosca, hndl, cbom, migration,        │
+  │           compliance, reporting, chatbot, threat_intel   │
+  └──────────────────────┬──────────────────────────────────┘
+                         │
+  ┌──────────────────────┴──────────────────────────────────┐
+  │                  DATABASE (SQLite)                       │
+  │  File: qguardian.db | Tables: DBScanJob, DBAsset        │
+  └─────────────────────────────────────────────────────────┘
+
+2.2 TECHNOLOGY STACK
+--------------------
+BACKEND:
+  - Python 3.x
+  - FastAPI (web framework, async-capable, OpenAPI auto-docs)
+  - Uvicorn (ASGI server, production-grade)
+  - SQLModel (ORM combining SQLAlchemy + Pydantic)
+  - SQLite (lightweight, file-based database — no external DB server)
+  - sslyze (SSL/TLS analysis library for certificate inspection)
+  - dnspython (DNS resolution for subdomain discovery)
+  - requests (HTTP client for external API calls and RSS feeds)
+  - reportlab (PDF generation for board briefs)
+  - numpy + matplotlib (data processing support)
+
+FRONTEND:
+  - React 18.2 (UI library)
+  - Vite 5 (build tool, HMR dev server)
+  - TailwindCSS 3.3 (utility-first CSS framework)
+  - Recharts 2.10 (charting: BarChart, AreaChart, PieChart)
+  - Framer Motion 10 (animations and micro-interactions)
+  - Lucide React (icon library, consistent SVG icons)
+  - react-force-graph-2d (force-directed graph visualization)
+  - axios (HTTP client for API communication)
+
+2.3 FOLDER STRUCTURE
+--------------------
+
+QGuardian-main/
+├── run.ps1                          ← PowerShell script to launch both servers
+├── backend/
+│   ├── requirements.txt             ← Python dependencies
+│   ├── qguardian.db                 ← SQLite database file (auto-created)
+│   └── app/
+│       ├── main.py                  ← FastAPI application entry point
+│       ├── database.py              ← SQLModel ORM models and DB setup
+│       └── engines/                 ← All scanning/analysis engines
+│           ├── discovery.py         ← Subdomain discovery + TLS scanning
+│           ├── port_scanner.py      ← Async TCP port scanner
+│           ├── api_scanner.py       ← OWASP API Top 10 scanner
+│           ├── scoring.py           ← Q-TRI score calculator
+│           ├── mosca.py             ← Mosca countdown clock calculator
+│           ├── hndl.py              ← Harvest-Now-Decrypt-Later exposure
+│           ├── cbom.py              ← Cryptographic Bill of Materials
+│           ├── migration.py         ← PQC migration playbook generator
+│           ├── compliance.py        ← RBI CSF 2.0 compliance mapper
+│           ├── reporting.py         ← PDF board brief generator
+│           ├── chatbot.py           ← Rule-based security chatbot
+│           └── threat_intel.py      ← Live RSS threat intelligence feed
+│
+├── frontend/
+│   ├── package.json                 ← Node.js dependencies
+│   ├── vite.config.js               ← Vite build configuration
+│   ├── tailwind.config.js           ← TailwindCSS theme (PNB colors)
+│   ├── postcss.config.js            ← PostCSS plugins
+│   ├── index.html                   ← Root HTML (SPA entry)
+│   └── src/
+│       ├── main.jsx                 ← React root renderer
+│       ├── App.jsx                  ← Main application component + routing
+│       ├── App.css                  ← Legacy CSS (mostly unused)
+│       ├── index.css                ← Global styles + Tailwind directives
+│       ├── logo.svg                 ← Q-Guardian SVG logo
+│       ├── assets/
+│       │   ├── logo.png             ← Q-Guardian logo (PNG)
+│       │   └── pnb_logo_secure.png  ← PNB official branding logo
+│       └── components/
+│           ├── Header.jsx           ← Top navigation + scan controls
+│           ├── Dashboard.jsx        ← Posture overview + charts + intel
+│           ├── AssetTable.jsx       ← Cryptographic asset inventory table
+│           ├── ApiScanner.jsx       ← API security scanning interface
+│           ├── HNDLSimulator.jsx    ← HNDL exposure timeline simulator
+│           ├── DependencyGraph.jsx  ← Force-directed crypto topology graph
+│           ├── ComplianceMapper.jsx ← RBI CSF 2.0 violation viewer
+│           ├── CBOMViewer.jsx       ← CBOM JSON viewer + export
+│           ├── PlaybookModal.jsx    ← Migration playbook modal dialog
+│           └── Chatbot.jsx          ← Floating chatbot widget
+│
+└── tmp/                             ← Temporary files directory
+
+
+================================================================================
+SECTION 3: BACKEND — DETAILED BREAKDOWN
+================================================================================
+
+3.1 main.py — THE API SERVER
+-----------------------------
+File: backend/app/main.py
+Purpose: This is the heart of the backend. It defines ALL REST API endpoints
+         and orchestrates every engine.
+
+Key Design Decisions:
+  - Uses FastAPI for automatic OpenAPI documentation, Pydantic validation,
+    dependency injection, and async support.
+  - CORS is set to allow all origins ("*") because the frontend runs on a
+    different port during development (5173 vs 8000).
+  - Background tasks are used for scanning so the user doesn't wait for the
+    full scan to complete — results stream in via polling.
+  - Database sessions are injected using FastAPI's Depends() mechanism to
+    ensure proper session lifecycle management.
+
+API Endpoints:
+  GET  /                                → Health check
+  POST /api/v1/scan/trigger             → Trigger a full domain scan
+  POST /api/v1/scan/api                 → Trigger an API security scan
+  GET  /api/v1/scan/{job_id}/status     → Poll scan progress (0-100%)
+  GET  /api/v1/assets                   → List all discovered assets
+  GET  /api/v1/enterprise/rating        → Get overall enterprise cyber rating
+  GET  /api/v1/migration/{id}/playbook  → Get PQC migration playbook for asset
+  GET  /api/v1/reports/board-brief      → Download PDF board brief
+  GET  /api/v1/compliance/rbi           → Get RBI CSF 2.0 compliance mapping
+  POST /api/v1/chat                     → Send message to chatbot
+  GET  /api/v1/threat-intel             → Get live threat intelligence feed
+
+Scan Workflow Logic:
+  When the user clicks "TRIGGER FULL SCAN" on the frontend:
+  1. Frontend POSTs to /scan/trigger with { domain: "example.com" }
+  2. Backend creates a DBScanJob record with status "SCANNING"
+  3. Backend spawns a background task (process_scan_background)
+  4. Frontend immediately gets back a job_id
+  5. Frontend polls /scan/{job_id}/status every 1 second
+  6. Background task runs through these phases:
+     a. 5%  → Initializing
+     b. 10% → Running subdomain discovery (crt.sh + DNS + TLS)
+     c. 30% → Discovery complete, starting deep scan per asset
+     d. 30-70% → For each asset: port scan + Q-TRI + Mosca + HNDL
+     e. 90% → Finalizing compliance mapping
+     f. 100% → Scan Complete, status → "COMPLETED"
+  7. Frontend detects COMPLETED, fetches all assets, shows Dashboard
+
+Progress Tracking Logic:
+  The update_job_progress() function is called throughout the scan to update
+  the database with the current progress percentage and step description.
+  This allows the frontend to show a live progress bar with messages like
+  "Scanning api.pnb.bank.in ports... (45%)"
+
+Enterprise Cyber Rating Logic:
+  - Collects all Q-TRI scores from discovered assets
+  - Calculates average Q-TRI score
+  - Scales from 0-100 to 0-1000
+  - Assigns a letter grade:
+      > 700 → "A — Excellent"
+      > 400 → "B/C — Good"
+      > 200 → "D — Needs Work"
+      else  → "F — Insecure"
+
+
+3.2 database.py — DATA PERSISTENCE
+------------------------------------
+File: backend/app/database.py
+Purpose: Defines the SQLite database schema and provides session management.
+
+Why SQLite?
+  - No need for a separate database server (PostgreSQL, MySQL, etc.)
+  - The database is a single file (qguardian.db) — easy to backup and deploy
+  - Perfectly adequate for a single-user security audit tool
+  - check_same_thread=False is set because FastAPI runs async and background
+    tasks may access the DB from different threads
+
+Tables:
+
+  DBScanJob:
+    - id (int, primary key, auto-increment)
+    - job_uuid (string, indexed) — UUID for each scan job
+    - domain (string) — the domain that was scanned
+    - status (string) — PENDING | SCANNING | COMPLETED | FAILED
+    - progress (int) — 0 to 100 percentage
+    - current_step (string) — human-readable step description
+    - created_at (string) — ISO timestamp of when scan began
+    - completed_at (string, nullable) — ISO timestamp of completion
+
+  DBAsset:
+    - id (int, primary key, auto-increment)
+    - asset_uuid (string, indexed) — unique ID for each asset
+    - job_uuid (string, indexed) — links asset to its parent scan job
+    - hostname (string) — the discovered hostname
+    - tls_version (string) — TLS version detected (1.0, 1.2, 1.3)
+    - algorithm (string) — cryptographic algorithm (RSA-2048, ECDSA-256, etc.)
+    - key_size (int) — key size in bits
+    - cipher_suite (string) — full cipher suite string
+    - forward_secrecy (bool) — whether PFS is enabled
+    - cert_valid (bool) — whether the certificate is valid
+    - cert_expiry (string) — certificate expiration date
+    - sensitivity_tier (string) — S1 (most sensitive) to S5 (public)
+    - is_pqc (bool) — whether post-quantum cryptography is in use
+    - policy_compliant (bool) — whether asset meets TLS 1.3 policy
+    - qtri_score (int) — calculated Q-TRI score (0-100)
+    - mosca_data (string) — JSON-serialized Mosca countdown data
+    - hndl_data (string, nullable) — JSON-serialized HNDL exposure data
+    - last_scanned (string) — ISO timestamp of last scan
+
+
+3.3 discovery.py — SUBDOMAIN DISCOVERY + TLS SCANNING ENGINE
+--------------------------------------------------------------
+File: backend/app/engines/discovery.py
+Purpose: Discovers all subdomains of a domain and performs real TLS handshakes
+         to extract cryptographic details from each.
+
+Logic Breakdown:
+
+  Step 1: Subdomain Discovery (get_subdomains_from_crtsh)
+    - Queries crt.sh — a free Certificate Transparency (CT) log aggregator
+    - URL: https://crt.sh/?q={domain}&output=json
+    - CT logs are public records of every SSL certificate ever issued
+    - This gives us a list of all subdomains that have certificates
+    - Example: for "pnb.bank.in" we might discover:
+        api.pnb.bank.in, auth.pnb.bank.in, vpn.pnb.bank.in, etc.
+
+  Step 2: TLS Handshake (get_real_tls_info)
+    - For each discovered hostname, we make a REAL SSL/TLS connection
+    - We connect to port 443 with a 3-second timeout
+    - We extract:
+        * TLS version (1.0, 1.1, 1.2, 1.3)
+        * Cipher suite name (e.g., TLS_AES_256_GCM_SHA384)
+        * Whether Forward Secrecy is enabled (checks for EECDH/DHE)
+        * Algorithm type (RSA vs ECDSA, derived from cipher suite)
+        * Key size (2048 for RSA, 256 for ECDSA)
+        * Whether PQC is in use (checks for KYBER/KEM in cipher name)
+    - Certificate verification is disabled (CERT_NONE) so we can inspect
+      even expired or self-signed certificates
+
+  Step 3: Sensitivity Classification (scan_asset)
+    - Each asset gets a sensitivity tier based on hostname patterns:
+        "api" in hostname → S1 (Core Payment, 10-year shelf life)
+        "auth" in hostname → S2 (KYC/Identity, 7-year shelf life)
+        "vpn" in hostname → S3 (Transaction History, 5-year shelf life)
+        default → S5 (Public Info, 1-year shelf life)
+    - Policy compliance is determined by TLS version (must be 1.3)
+
+  Step 4: Run Discovery (run_discovery)
+    - Combines subdomain listing + TLS scanning
+    - Limits to top 5 subdomains for speed during standard scans
+    - Returns a list of asset dictionaries with all cryptographic metadata
+
+Why This Matters:
+  This is the foundation of everything. Without knowing WHAT infrastructure
+  you have and WHAT cryptography it uses, you can't assess quantum risk.
+  Certificate Transparency logs are a brilliant real-world data source that
+  gives us genuine subdomain intelligence without needing internal network
+  access.
+
+
+3.4 port_scanner.py — ASYNCHRONOUS TCP PORT SCANNER
+-----------------------------------------------------
+File: backend/app/engines/port_scanner.py
+Purpose: Scans each discovered host for open ports to identify exposed services.
+
+Logic Breakdown:
+  - Defines 17 common ports to scan:
+      80 (HTTP), 443 (HTTPS), 21 (FTP), 22 (SSH), 23 (Telnet),
+      25 (SMTP), 53 (DNS), 110 (POP3), 143 (IMAP), 465 (SMTPS),
+      587 (Mail), 993 (IMAPS), 995 (POP3S), 3306 (MySQL),
+      3389 (RDP), 5432 (PostgreSQL), 8080 (HTTP-Proxy), 8443 (HTTPS-Alt)
+
+  - Uses Python's asyncio for concurrent scanning:
+      * Each port is scanned simultaneously (not one at a time)
+      * asyncio.open_connection() attempts a TCP handshake
+      * 1-second timeout per port
+      * If connection succeeds → port is OPEN
+      * If timeout/refused/error → port is CLOSED
+
+  - The run_port_scan() function is a synchronous wrapper that creates
+    an asyncio event loop when needed (since the background scan task
+    is synchronous)
+
+Why This Matters:
+  Open ports reveal the attack surface. An open MySQL port (3306) on a
+  public-facing server is a critical misconfiguration. An open Telnet port
+  (23) means unencrypted remote access. This data feeds into the asset
+  inventory and helps security teams prioritize remediation. Port data
+  is displayed in the Asset Inventory table on the frontend.
+
+
+3.5 api_scanner.py — OWASP API SECURITY TOP 10 SCANNER
+--------------------------------------------------------
+File: backend/app/engines/api_scanner.py
+Purpose: Tests an API endpoint against the OWASP API Security Top 10 checklist.
+
+OWASP Checks Implemented:
+  API1 — Broken Object Level Authorization (framework check)
+  API2 — Broken Authentication (detected if no 401/403 on endpoints)
+  API3 — Excessive Data Exposure (detected if Swagger/OpenAPI is public)
+  API4 — Lack of Rate Limiting (detected by sending 15 rapid requests)
+  API5 — Broken Function Level Authorization (framework check)
+  API7 — Security Misconfiguration (detected via wildcard CORS)
+
+Logic Breakdown:
+
+  Step 1: Connectivity Test
+    - Sends a GET request to the target URL
+    - If connection fails, returns error immediately
+
+  Step 2: Security Header Analysis (analyze_security_headers)
+    - Checks for 7 critical HTTP security headers:
+        * HSTS (Strict-Transport-Security) — prevents downgrade attacks
+        * CSP (Content-Security-Policy) — prevents XSS
+        * X-Frame-Options — prevents clickjacking
+        * X-Content-Type-Options — prevents MIME sniffing
+        * X-XSS-Protection — legacy XSS protection
+        * Cache-Control (no-store) — prevents caching sensitive data
+        * CORS (Access-Control-Allow-Origin) — cross-origin policy
+    - Calculates a header score: (headers present / 7) * 100
+
+  Step 3: Rate Limiting Test (API4)
+    - Sends 15 rapid GET requests to the target
+    - If no HTTP 429 (Too Many Requests) is ever returned, the API
+      lacks rate limiting → HIGH severity finding
+
+  Step 4: CORS Policy Check (API7)
+    - If Access-Control-Allow-Origin is "*" (wildcard), it means any
+      website can make requests to this API → MEDIUM severity finding
+
+  Step 5: Endpoint Discovery & Auth Check (API2, API3)
+    - Probes common API paths: /api, /v1, /api/v1, /swagger.json,
+      /openapi.json, /health
+    - If ALL return 200 (no 401/403), it means NO authentication
+      is required → CRITICAL severity finding
+    - If /swagger.json or /openapi.json is publicly accessible,
+      API documentation is exposed → MEDIUM severity (API3)
+
+  Step 6: Information Disclosure
+    - Checks if Server header reveals server software (e.g., "nginx/1.20")
+    - Checks if X-Powered-By reveals framework (e.g., "Express")
+
+  Step 7: Risk Score Calculation
+    - Starts with header_score
+    - Subtracts 10 points per OWASP finding
+    - Clamped between 0 and 100
+
+Why This Matters:
+  APIs are the primary attack vector for modern banking systems. Every
+  mobile banking app, UPI integration, and partner system connects via
+  APIs. Testing them against OWASP's API-specific security standard
+  is critical for PNB's security posture.
+
+
+3.6 scoring.py — Q-TRI (QUANTUM TRANSITION READINESS INDEX)
+-------------------------------------------------------------
+File: backend/app/engines/scoring.py
+Purpose: Calculates a proprietary 0-100 score for each asset's quantum readiness.
+
+Q-TRI Score Components:
+  ┌─────────────────────────────┬────────┬──────────────────────────┐
+  │ Component                   │ Weight │ How It's Scored          │
+  ├─────────────────────────────┼────────┼──────────────────────────┤
+  │ PQC Adoption                │  30%   │ 30 if ML-KEM/ML-DSA used │
+  │ TLS Version                 │  20%   │ 20 for 1.3, 10 for 1.2  │
+  │ Forward Secrecy             │  15%   │ 15 if ECDHE/DHE enabled  │
+  │ Certificate Hygiene         │  15%   │ 15 if valid + key≥2048   │
+  │ Cipher Suite Strength       │  10%   │ 10 if GCM or CHACHA20    │
+  │ Policy Compliance           │  10%   │ 10 if passes all checks  │
+  └─────────────────────────────┴────────┴──────────────────────────┘
+
+  Maximum score: 100 (fully quantum-safe)
+  Minimum score: 0 (completely vulnerable)
+
+Enterprise Cyber Rating:
+  - Averages all asset Q-TRI scores
+  - Scales to 0-1000 range (avg * 10)
+  - This gives a single number for the board to track progress
+
+Why This Matters:
+  The Q-TRI score is the central metric of the entire platform. It gives
+  a single, comparable number that answers "How quantum-ready is this
+  asset?" Without this, security teams would need to manually evaluate
+  dozens of cryptographic parameters per asset. The weighting reflects
+  real-world priorities — PQC adoption (30%) is weighted highest because
+  it's the most important defense against quantum threats.
+
+
+3.7 mosca.py — MOSCA COUNTDOWN CLOCK
+--------------------------------------
+File: backend/app/engines/mosca.py
+Purpose: Implements the Mosca Risk Framework to calculate when assets become
+         vulnerable to quantum attack.
+
+The Mosca Inequality (Academic Model):
+  X + Y > Z means the asset IS at risk.
+
+  Where:
+    X = Time needed to migrate to PQC (in years)
+        Based on migration_complexity (0.5 to 3.0 years)
+    Y = Data shelf life (how long the data must remain secret)
+        S1: 10 years (core payment systems)
+        S2: 7 years (KYC/identity data)
+        S3: 5 years (transaction history)
+        S4: 3 years (internal business)
+        S5: 1 year (public information)
+    Z = Time until CRQC arrives
+        Worst case: 5 years
+        Best case: 15 years
+
+  Calculation:
+    days_remaining = (Z - (X + Y)) * 365.25
+
+  Risk Classification:
+    CRITICAL → days_remaining (worst case) ≤ 0
+                (Migration deadline has ALREADY passed)
+    WARNING  → days_remaining (worst case) < 365
+                (Less than 1 year to act)
+    MONITOR  → days_remaining (best case) < 3 years
+                (Should start planning)
+    SAFE     → Plenty of time remaining
+
+Example:
+  Asset: api.pnb.bank.in (S1 tier)
+    X = 1.75 years (moderate complexity)
+    Y = 10 years (core payment data shelf life)
+    Z = 5 years (worst case CRQC)
+    X + Y = 11.75 years > Z = 5 years
+    days_remaining = (5 - 11.75) * 365.25 = -2467 days
+    STATUS: CRITICAL (deadline passed 6.75 years ago!)
+
+Why This Matters:
+  Mosca is not our invention — it's a widely accepted academic framework
+  by Dr. Michele Mosca for evaluating quantum risk timelines. By
+  implementing it computationally, we give PNB a scientific, defensible
+  basis for prioritizing migration efforts. The "countdown clock" concept
+  is powerful for communicating urgency to non-technical executives.
+
+
+3.8 hndl.py — HARVEST-NOW-DECRYPT-LATER EXPOSURE CALCULATOR
+--------------------------------------------------------------
+File: backend/app/engines/hndl.py
+Purpose: Quantifies the data volume at risk from HNDL attacks.
+
+HNDL Only Applies To:
+  Assets WITHOUT Perfect Forward Secrecy (PFS). If an asset uses PFS
+  (ECDHE/DHE key exchange), each session has unique keys, so even if
+  the long-term private key is compromised, past sessions cannot be
+  decrypted. Without PFS, ALL historical traffic can be decrypted once
+  the key is broken.
+
+Logic:
+  - Traffic volume (GB/month) is estimated based on sensitivity tier:
+      S1: 500 GB/month (core payment APIs handle massive traffic)
+      S2: 300 GB/month (authentication services)
+      S3: 150 GB/month (transaction logs)
+      S4: 50 GB/month (internal systems)
+      S5: 10 GB/month (public-facing pages)
+  - A deterministic factor based on hostname length adds variation
+  - Harvest start date is assumed to be January 1, 2023
+  - Months captured = (today - Jan 2023) / 30
+  - total_gb_at_risk = traffic_volume * months_captured
+  - Risk value = total_gb_at_risk * sensitivity_multiplier
+      (S1: ×10, S2: ×5, S3: ×2, S4: ×1, S5: ×0.5)
+
+Why This Matters:
+  HNDL is the most immediate quantum threat because it's happening RIGHT
+  NOW. Adversaries don't need quantum computers to harvest data — they
+  just need to record encrypted traffic. By quantifying the data volume
+  at risk, we help PNB understand the scale of potential exposure and
+  justify the urgency of enabling PFS everywhere.
+
+
+3.9 cbom.py — CRYPTOGRAPHIC BILL OF MATERIALS GENERATOR
+---------------------------------------------------------
+File: backend/app/engines/cbom.py
+Purpose: Generates a machine-readable inventory of all cryptographic assets
+         in CycloneDX-compatible JSON format.
+
+CBOM Structure:
+  {
+    "metadata": {
+      "timestamp": "2026-04-11T...",
+      "tool": "Q-Guardian v2.0",
+      "format": "CycloneDX-Compatible"
+    },
+    "components": [
+      {
+        "name": "api.pnb.bank.in",
+        "type": "service",
+        "cryptography": {
+          "algorithm": "RSA-2048",
+          "key_size": 2048,
+          "tls_version": "1.2",
+          "forward_secrecy": false
+        },
+        "risk": {
+          "qtri_score": 25,
+          "mosca_status": "CRITICAL"
+        }
+      }
+    ]
+  }
+
+Why This Matters:
+  CBOM is to cryptography what SBOM (Software Bill of Materials) is to
+  software dependencies. Regulators and auditors increasingly require
+  organizations to maintain an inventory of their cryptographic assets.
+  CycloneDX is an OWASP standard format that interoperates with other
+  security tools. Having this export capability makes Q-Guardian audit-ready.
+
+
+3.10 migration.py — PQC MIGRATION PLAYBOOK GENERATOR
+------------------------------------------------------
+File: backend/app/engines/migration.py
+Purpose: For each vulnerable asset, generates a specific migration playbook
+         with the target PQC algorithm and production-ready server configuration.
+
+Migration Logic:
+  RSA-based assets:
+    Target: Hybrid RSA + ML-KEM-768 (FIPS 203)
+    Config: SSL protocols set to TLS 1.3
+            Cipher: TLS_AES_256_GCM_SHA384 + CHACHA20_POLY1305
+            Key exchange: X25519MLKEM768:prime256v1 (hybrid)
+            HSTS: Strict-Transport-Security with 2-year max-age
+    Effort: 2 to 4 weeks
+
+  ECC-based assets:
+    Target: Hybrid ECC + ML-KEM-512
+    Config: Key exchange curve: SecP256r1MLKEM512:prime256v1
+    Effort: 1 to 3 weeks
+
+  Non-TLS-1.3 assets:
+    Marked as URGENT with 1-week protocol upgrade requirement
+
+  All playbooks include:
+    - Current cryptographic state
+    - Target PQC algorithm with NIST FIPS reference
+    - NIST standard references (FIPS 203, SP 800-52r2)
+    - Ready-to-paste NGINX configuration snippets
+    - Effort estimates
+    - Risk reduction impact description
+
+Why This Matters:
+  It's not enough to tell a security team "you're vulnerable." They need
+  to know EXACTLY what to do. The playbook gives them production-ready
+  Nginx configurations they can copy-paste into their server configs.
+  The hybrid approach (RSA + ML-KEM) is the NIST-recommended transition
+  strategy — it maintains backward compatibility while adding quantum
+  resistance.
+
+
+3.11 compliance.py — RBI CSF 2.0 COMPLIANCE MAPPER
+----------------------------------------------------
+File: backend/app/engines/compliance.py
+Purpose: Automatically maps cryptographic findings to specific RBI Cybersecurity
+         Framework (CSF) 2.0 regulatory controls.
+
+Compliance Checks:
+  ┌────────────────────────────────────────────┬─────────────────────────────────┐
+  │ Finding                                    │ RBI Control                     │
+  ├────────────────────────────────────────────┼─────────────────────────────────┤
+  │ TLS version != 1.3                         │ Annexure 1, Section 4.2        │
+  │ RSA with key size < 2048 bits              │ Annexure 1, Section 5.1        │
+  │ No Perfect Forward Secrecy (PFS)           │ Annexure 4, Section 2.3        │
+  └────────────────────────────────────────────┴─────────────────────────────────┘
+
+  Each finding includes:
+    - Specific RBI control reference
+    - Description of the violation
+    - Remediation step
+
+Why This Matters:
+  RBI compliance is non-negotiable for Indian banks. Manual compliance
+  mapping is tedious and error-prone. By automating this, Q-Guardian
+  lets compliance teams generate audit-ready reports with a single click.
+  The specific annexure references allow auditors to verify compliance
+  against the official RBI document.
+
+
+3.12 reporting.py — PDF BOARD BRIEF GENERATOR
+-----------------------------------------------
+File: backend/app/engines/reporting.py
+Purpose: Generates a professional PDF report for the Board of Directors.
+
+PDF Contents:
+  - Title: "Q-GUARDIAN | QUANTUM TRANSITION INTELLIGENCE"
+  - Date: Current date
+  - Executive Summary:
+      Enterprise cyber rating, total asset count, Mosca risk window
+  - Top 5 Cryptographic Risks:
+      Table with hostname, algorithm, Q-TRI score, Mosca countdown
+      Sorted by lowest Q-TRI score (most vulnerable first)
+  - Regulatory Alignment:
+      Reference to RBI CSF 2.0 and NIST IR 8547 PQC Migration Guidelines
+  - Styled with:
+      Maroon table headers, beige data rows, black grid borders
+
+Why This Matters:
+  Board members don't read dashboards. They read PDF reports. This feature
+  generates a concise, professionally formatted brief that a CISO can
+  email to the board. The "Top 5 Risks" table immediately highlights
+  where attention is needed.
+
+
+3.13 chatbot.py — RULE-BASED SECURITY INTELLIGENCE CHATBOT
+-------------------------------------------------------------
+File: backend/app/engines/chatbot.py
+Purpose: Provides an on-device, rule-based chatbot that answers security
+         questions without any external AI model dependency.
+
+Architecture: Pattern-matching using regex → intent classification → response
+
+Knowledge Base Topics:
+  MOSCA → Explains the Mosca countdown framework
+  HNDL  → Explains Harvest-Now-Decrypt-Later
+  PQC   → Explains Post-Quantum Cryptography
+  QTRI  → Explains the Q-TRI scoring system
+  TLS   → Explains TLS/SSL protocol security
+  RBI   → Explains RBI CSF compliance requirements
+
+Intent Detection:
+  Uses regex patterns to identify user intent from their message:
+  "what is mosca" → mosca intent → returns MOSCA explanation
+  "top risks"     → risk_summary → analyzes scan data for critical assets
+  "scan results"  → scan_status → returns asset count from latest scan
+  "hello"         → greeting → welcome message
+
+Dynamic Context:
+  When the user asks about "scan results" or "top risks", the chatbot
+  receives the current scan data as context and generates dynamic responses
+  based on actual findings, not canned text.
+
+Why Rule-Based (No AI)?
+  - NO DATA LEAVES THE NETWORK: For a bank, sending user queries to OpenAI
+    or Google's API would be a data leak risk.
+  - DETERMINISTIC: Same question always gets the same answer. No
+    hallucination risk.
+  - NO API QUOTAS: Works offline, no rate limits, no costs.
+  - AUDITABLE: The exact logic can be inspected and verified by compliance.
+
+
+3.14 threat_intel.py — LIVE THREAT INTELLIGENCE FEED
+------------------------------------------------------
+File: backend/app/engines/threat_intel.py
+Purpose: Pulls live RSS feeds from major quantum computing and cybersecurity
+         news sources and displays them with impact assessments.
+
+RSS Sources:
+  - IBM Quantum Computing Blog
+  - NIST News & Events
+  - Google AI Blog
+  - CSO Online Cybersecurity
+
+Logic:
+  1. Fetches RSS XML from each source (with 5-second timeout per feed)
+  2. Parses XML to extract title and publication date
+  3. Performs basic relevance classification:
+       "quantum" or "pqc" in title → "Mosca clocks recalculated (-5 days)"
+       "vulnerability" or "breach" → "HNDL risk elevated"
+       "standard" or "nist"        → "Compliance mapping updated"
+       Other                       → "General security note"
+  4. Caches results for 6 hours to avoid excessive network requests
+  5. If all feeds fail, falls back to hardcoded fallback entries so the
+     UI never looks broken
+
+Why This Matters:
+  Quantum computing progress directly affects the 'Z' variable in the
+  Mosca equation. If IBM announces a new 1000+ qubit processor, the
+  timeline to CRQC shrinks. By surfacing this news alongside the
+  platform's analysis, decision-makers get a holistic view of the
+  threat landscape.
+
+
+================================================================================
+SECTION 4: FRONTEND — DETAILED BREAKDOWN
+================================================================================
+
+4.1 DESIGN PHILOSOPHY
+-----------------------
+  - PNB Brand-First: Every pixel uses PNB's official maroon (#A20C39) and
+    gold (#FBBC09) color palette. The PNB logo appears prominently.
+  - Glass-morphism: Cards use backdrop-blur, semi-transparent backgrounds,
+    and subtle shadows for a modern, premium feel.
+  - Data-Dense: Security professionals expect information-dense interfaces.
+    Every component maximizes data visibility without clutter.
+  - Responsive: Works on desktop (1400px max width) and tablets.
+  - Micro-animations: Framer Motion provides entrance animations, hover
+    effects, and transition smoothness that make the UI feel alive.
+
+4.2 App.jsx — MAIN APPLICATION COMPONENT
+------------------------------------------
+File: frontend/src/App.jsx
+Purpose: Root component that manages global state, routing, and data fetching.
+
+State Management (React useState):
+  - activeTab: Which tab/page is currently selected
+  - assets: Array of all discovered cryptographic assets
+  - rating: Enterprise cyber rating object
+  - scanning/polling: Boolean flags for scan-in-progress state
+  - domain: The domain entered by the user
+  - selectedAsset/playbook: For the migration playbook modal
+  - scanProgress/scanStatusMsg: Live scan progress tracking
+
+Tab Navigation:
+  The app uses a custom tab system (not React Router) with 7 tabs:
+    1. POSTURE DASHBOARD → Dashboard.jsx
+    2. ASSET INVENTORY   → AssetTable.jsx
+    3. API SCANNER       → ApiScanner.jsx
+    4. HNDL SIMULATOR    → HNDLSimulator.jsx
+    5. TOPOLOGY GRAPH    → DependencyGraph.jsx
+    6. RBI MAPPER        → ComplianceMapper.jsx
+    7. CBOM READY        → CBOMViewer.jsx
+
+  Additionally:
+    - Chatbot.jsx is always visible (floating widget)
+    - PlaybookModal.jsx appears as an overlay when triggered
+
+Data Flow:
+  App.jsx fetches /assets and /enterprise/rating on mount. This data
+  is passed down as props to Dashboard, AssetTable, HNDLSimulator,
+  DependencyGraph, and CBOMViewer. This avoids redundant API calls.
+
+Footer:
+  Fixed footer with PNB branding: copyright, privacy policy, disclaimer,
+  and "POWERED BY MOSCA RISK COUNTDOWN ENGINE"
+
+
+4.3 Header.jsx — TOP NAVIGATION BAR
+--------------------------------------
+File: frontend/src/components/Header.jsx
+Purpose: The fixed header with branding, scan controls, and progress bar.
+
+Structure (3 layers):
+  Layer 1 (Maroon Bar):
+    - PNB CYBERSECURITY PLATFORM title with shield icon
+    - "RBI MANDATE SERIES 2026" label
+    - "LIVE DATA STREAM" animated indicator (when polling)
+    - "Q-GUARDIAN v2.0 FINAL" version badge
+
+  Layer 2 (White Bar):
+    - PNB logo (pnb_logo_secure.png)
+    - "Q-GUARDIAN" title with animated gold pulse dot
+    - Domain input field (defaulting to "pnb.bank.in")
+    - "TRIGGER FULL SCAN" button (with spinner when scanning)
+
+  Layer 3 (Progress Bar, shown only during scan):
+    - Gradient bar from maroon to pink
+    - Animated diagonal stripes (progress animation)
+    - Text showing current step + percentage
+    - Spinner icon
+
+Design Logic:
+  The header is fixed (position: fixed) and takes up ~112px of vertical
+  space. The main content has pt-28 (padding-top: 7rem) to account for
+  this. The animated grid background on the maroon bar adds a cybersecurity
+  aesthetic without being distracting.
+
+
+4.4 Dashboard.jsx — POSTURE OVERVIEW DASHBOARD
+-------------------------------------------------
+File: frontend/src/components/Dashboard.jsx
+Purpose: The main dashboard showing enterprise health at a glance.
+
+Sections:
+  1. Enterprise Cyber Rating Card (left column)
+     - Large animated number (0-1000)
+     - Color-coded: green (>700), blue (>400), maroon (≤400)
+     - Letter grade badge (A, B/C, D, F)
+     - "EXPORT BOARD BRIEF" button → downloads PDF
+
+  2. Assets by Classification Chart (right 2 columns)
+     - Bar chart using Recharts
+     - Categories:
+         Elite-PQC (QTRI ≥ 85) → Green
+         Advanced (70-84) → Light green
+         Standard (50-69) → Amber
+         Legacy (30-49) → Dark amber
+         Critical (<30) → Red
+
+  3. Stat Cards Row (full width, 4 columns)
+     - Total Assets count
+     - PQC Ready count
+     - Critical Risks (Mosca CRITICAL state)
+     - Mosca Warnings count
+
+  4. Live Threat Intelligence Feed (full width)
+     - Fetches from /api/v1/threat-intel on mount
+     - Displays news items with source, date, title, impact
+     - Items are styled with left border accent that highlights on hover
+
+Data Flow:
+  - rating and assets are passed as props from App.jsx
+  - intel is fetched independently within Dashboard (useEffect on mount)
+  - Framer Motion provides entrance animations (fade in + slide up)
+  - Stat cards have hover-lift effect (-translate-y-1)
+
+
+4.5 AssetTable.jsx — CRYPTOGRAPHIC ASSET INVENTORY
+----------------------------------------------------
+File: frontend/src/components/AssetTable.jsx
+Purpose: A detailed table listing every discovered cryptographic asset.
+
+Table Columns:
+  1. Asset Identity — Hostname (uppercase, bold) + Sensitivity Tier
+  2. Cipher & Authority — Algorithm + TLS version + key size + PQC badge
+  3. Network Exposure — Open ports (from port scan), each as a pill badge
+  4. Health Rating — Q-TRI score with animated progress bar (color-coded)
+  5. Mosca Timeline — Days remaining with clock icon (CRITICAL pulses red)
+  6. Protection — "PLAYBOOK" button → opens PlaybookModal.jsx
+
+Visual Details:
+  - Each row animates in sequentially (0.05s delay per row)
+  - Rows have a subtle maroon tint on hover
+  - PQC-ready assets show a green shield checkmark icon
+  - CRITICAL Mosca assets have a pulsing red text animation
+  - Port badges show service name on hover (title attribute)
+  - Responsive: Health Rating hidden on mobile, Mosca hidden on small screens
+
+
+4.6 ApiScanner.jsx — API SECURITY SCANNER UI
+-----------------------------------------------
+File: frontend/src/components/ApiScanner.jsx
+Purpose: Interface for scanning API endpoints against OWASP Top 10.
+
+Sections:
+  1. Scanner Header (Maroon background)
+     - Title: "API SECURITY SCANNER (OWASP TOP 10)"
+     - Input field for API URL (default: "api.pnb.bank.in")
+     - "RUN SECURITY SCAN" button (gold background)
+
+  2. Results (shown after scan completes):
+     a. API Security Grade Card
+        - Large score number (0-100) in a circular border
+        - Grade: A (>80), C (>60), F (≤60)
+
+     b. Security Headers Scorecard
+        - Grid of 7 headers, each showing present (green ✓) or missing (red ✗)
+        - CORS policy risk level
+        - TLS enforcement status
+
+     c. OWASP API Top 10 Findings
+        - Each finding shows severity badge (CRITICAL/HIGH/MEDIUM)
+        - Finding ID (API2, API4, etc.) and detailed description
+        - Monospace font for technical details
+
+     d. Discovered Endpoints
+        - List of URLs tested with HTTP status codes
+        - Color-coded: 200 green, 401/403 blue (good — auth required)
+
+     e. Information Disclosure
+        - List of leaked server signatures
+
+
+4.7 HNDLSimulator.jsx — HNDL EXPOSURE TIMELINE
+-------------------------------------------------
+File: frontend/src/components/HNDLSimulator.jsx
+Purpose: Visualizes the Harvest-Now-Decrypt-Later threat over time.
+
+Visualization:
+  - Area chart (Recharts) showing cumulative HNDL exposure from 2023 to 2030
+  - Gradient fill from red (0.3 opacity) to transparent
+  - Data points projecting future exposure growth using multipliers:
+      2023: 0x, 2024: 0.2x, 2025: 0.5x, 2026: 1x (current),
+      2027: 1.5x, 2028: 2.2x, 2029: 3.1x, 2030: 4.5x
+
+  - Below the chart: individual asset cards for HNDL-affected assets
+    showing total GB at risk, risk score, and harvest start date
+
+  - If NO assets lack PFS, shows a green "NO HNDL EXPOSURE DETECTED"
+    message with explanation
+
+
+4.8 DependencyGraph.jsx — CRYPTO DEPENDENCY TOPOLOGY
+------------------------------------------------------
+File: frontend/src/components/DependencyGraph.jsx
+Purpose: Force-directed graph showing relationships between assets,
+         algorithms, and certificate authorities.
+
+Node Types:
+  - Asset Nodes (maroon/red) — each hostname
+  - Algorithm Nodes (gold) — RSA-2048, ECDSA-256, ML-KEM-768
+  - Certificate Authority Nodes (dark) — PNB-INTERNAL-CA, PUBLIC-ROOT-CA
+
+Edge Relationships:
+  Asset → Algorithm (uses this cryptographic algorithm)
+  Asset → CA (certificate issued by this authority)
+
+Visual Effects:
+  - Force-directed layout using d3 physics simulation
+  - Animated particles flowing along edges
+  - Curved links (curvature: 0.25)
+  - Critical nodes have a red glow effect (shadowBlur: 15)
+  - Custom node rendering with Orbitron font labels
+  - Auto zoom-to-fit when simulation stabilizes
+  - Legend overlay in bottom-right corner
+
+Library: react-force-graph-2d (wrapper around d3-force)
+
+
+4.9 ComplianceMapper.jsx — RBI CSF 2.0 COMPLIANCE VIEWER
+-----------------------------------------------------------
+File: frontend/src/components/ComplianceMapper.jsx
+Purpose: Displays all RBI CSF 2.0 compliance violations with remediation.
+
+Structure:
+  - Header: "RBI CYBERSECURITY FRAMEWORK (CSF) 2.0 AUTO-MAPPER"
+  - For each hostname with violations:
+      - Hostname header with violation count
+      - Each violation shows:
+          * RBI Control reference (e.g., "Annexure 1, Section 4.2")
+          * Description of the violation
+          * Remediation guidance in italic text
+  - If no violations: "NO REGULATORY VIOLATIONS DETECTED"
+
+Data Source: Fetches from /api/v1/compliance/rbi on mount
+
+
+4.10 CBOMViewer.jsx — CRYPTOGRAPHIC BILL OF MATERIALS
+-------------------------------------------------------
+File: frontend/src/components/CBOMViewer.jsx
+Purpose: Displays the live CBOM in JSON format and allows export.
+
+Features:
+  - Header with "LIVE CRYPTOGRAPHIC BILL OF MATERIALS (CBOM)"
+  - "EXPORT JSON" button (gold) → downloads as PNB_CBOM_Export.json
+  - Dark-themed code viewer (bg-slate-900)
+  - Green monospace text (terminal aesthetic)
+  - "READ_ONLY" badge in top-right corner
+  - JSON is generated client-side from the assets prop
+  - CycloneDX-compatible format with PNB organization metadata
+
+
+4.11 PlaybookModal.jsx — MIGRATION PLAYBOOK MODAL
+----------------------------------------------------
+File: frontend/src/components/PlaybookModal.jsx
+Purpose: Overlay modal showing the PQC migration plan for a specific asset.
+
+Triggered by: Clicking "PLAYBOOK" button in AssetTable row
+
+Content:
+  - Header: "MIGRATION PLAYBOOK" + hostname
+  - 4 info items in a 2-column grid:
+      * Current State (e.g., "RSA-2048 1.2")
+      * Target Algorithm (e.g., "Hybrid: RSA + ML-KEM-768")
+      * NIST Standard (e.g., "FIPS 203 / NIST SP 800-52r2")
+      * Effort Estimate (e.g., "2 to 4 weeks")
+  - Remediation Rationale section
+  - NGINX configuration snippet in dark code block
+  - Copy-to-clipboard button (appears on hover)
+  - "DISMISS" button to close
+
+Design: Full-screen backdrop blur overlay with zoom-in animation
+
+
+4.12 Chatbot.jsx — FLOATING CHATBOT WIDGET
+---------------------------------------------
+File: frontend/src/components/Chatbot.jsx
+Purpose: Floating chat widget for on-demand security intelligence.
+
+Features:
+  - Floating Action Button (bottom-right, above footer)
+      * PNB maroon with gold border
+      * Red ping animation dot (attention indicator)
+
+  - Chat Window (380px wide, 500px tall):
+      * Header: "Q-GUARDIAN AI" + "ON-DEVICE SECURE ENGINE"
+      * Messages area with bot (left) and user (right) bubbles
+      * Typing indicator (3 bouncing dots)
+      * Quick query buttons:
+          "What is MOSCA?" | "Latest Scan" | "RBI Compliance"
+      * Input field + Send button
+
+  - Auto-scrolls to latest message
+  - 500ms artificial delay for natural typing feel
+  - Messages styled differently:
+      User: maroon background, white text, right-aligned
+      Bot: white background, border, left-aligned
+
+Communication: POSTs to /api/v1/chat, receives { reply: "..." }
+
+
+4.13 index.css — GLOBAL STYLES AND DESIGN SYSTEM
+---------------------------------------------------
+File: frontend/src/index.css
+
+Typography:
+  - Google Fonts: Inter (body text) + Orbitron (monospace/tech display)
+  - Body uses Inter with slate-800 text color
+  - Selection highlight: maroon background, white text
+
+Custom Utility Classes:
+  .pnb-button — Maroon button with gold-tone bottom border, active press
+                effect (translate-y-1), shadow, uppercase tracking
+  .glass-card — White 70% opacity, backdrop-blur-xl, subtle shadow,
+                rounded-2xl, hover: larger shadow + slight lift
+  .pnb-gradient-text — Gradient text from maroon to pink
+  .premium-border — Double border effect (border + ring)
+  .inner-glow — Inset white shadow for depth
+  .scrollbar-hide — Hides scrollbars on WebKit and Firefox
+
+Background: Radial gradient from white through slate-50 to slate-100
+
+4.14 tailwind.config.js — THEME CONFIGURATION
+------------------------------------------------
+File: frontend/tailwind.config.js
+
+Custom Colors:
+  pnb-maroon: "#A20C39" (PNB's primary brand color)
+  pnb-gold: "#FBBC09" (PNB's secondary accent color)
+  pnb-light: "#DBE9F4" (light blue accent)
+  pnb-dark: "#1e293b" (dark slate for contrast)
+
+Font: Arial as primary sans-serif (matching PNB's corporate font)
+
+
+================================================================================
+SECTION 5: DATABASE DESIGN AND DATA FLOW
+================================================================================
+
+5.1 DATA LIFECYCLE
+-------------------
+  1. User enters domain → clicks "TRIGGER FULL SCAN"
+  2. DBScanJob created with status=SCANNING, progress=0
+  3. Background task discovers subdomains via crt.sh
+  4. For each subdomain:
+     a. Real TLS handshake → extract crypto metadata
+     b. Async port scan → identify open services
+     c. Calculate Q-TRI score
+     d. Calculate Mosca countdown
+     e. Calculate HNDL exposure (if no PFS)
+     f. Create DBAsset record, commit to database
+     g. Update DBScanJob progress
+  5. Scan completes → DBScanJob status=COMPLETED
+  6. Frontend fetches all DBAssets via /api/v1/assets
+  7. Enterprise rating calculated on-the-fly from all Q-TRI scores
+  8. Dashboard, charts, and tables render from this data
+
+5.2 WHY WE COMMIT EACH ASSET INDIVIDUALLY
+-------------------------------------------
+In main.py, each asset is committed to the database immediately after
+processing (session.commit() inside the loop). This is intentional:
+  - Assets appear in the database DURING the scan, not only at the end
+  - If the scan fails midway, already-processed assets are preserved
+  - The frontend could theoretically show partial results during scanning
+  - Fresh sessions per asset avoid SQLite lock contention
+
+
+================================================================================
+SECTION 6: SECURITY CONSIDERATIONS
+================================================================================
+
+6.1 NO EXTERNAL AI DEPENDENCY
+-------------------------------
+The chatbot uses a local rule-based engine. No user data is sent to
+OpenAI, Google, or any external LLM service. This is by design — a
+banking cybersecurity tool must not leak internal questions or scan
+data to third parties.
+
+6.2 CORS POLICY
+-----------------
+Currently set to allow_origins=["*"] for development. In production,
+this MUST be restricted to the frontend's specific origin.
+
+6.3 TLS SCANNING APPROACH
+---------------------------
+When scanning TLS, we disable certificate verification (CERT_NONE).
+This is intentional — we NEED to inspect even expired or self-signed
+certificates. We're auditing, not trusting.
+
+6.4 DATA RESIDENCY
+--------------------
+All data stays in the local SQLite database. No cloud services are
+used for data storage.
+
+6.5 SSL WARNINGS SUPPRESSED
+-----------------------------
+In api_scanner.py, urllib3 InsecureRequestWarning is disabled because
+we intentionally make unverified HTTPS requests during scanning.
+
+
+================================================================================
+SECTION 7: HOW TO RUN THE PROJECT
+================================================================================
+
+7.1 PREREQUISITES
+------------------
+  - Python 3.10 or later
+  - Node.js 20.x or later
+  - pip (Python package manager)
+  - npm (Node.js package manager)
+
+7.2 BACKEND SETUP
+------------------
+  cd backend
+  python -m venv venv
+  .\venv\Scripts\Activate.ps1
+  pip install -r requirements.txt
+  python -m uvicorn app.main:app --reload --port 8000
+
+7.3 FRONTEND SETUP
+--------------------
+  cd frontend
+  npm install
+  npm run dev
+
+7.4 QUICK START (BOTH)
+------------------------
+  From the project root:
+  powershell -ExecutionPolicy Bypass -File .\run.ps1
+
+  This opens TWO separate terminal windows:
+    - Terminal 1: Backend on http://localhost:8000
+    - Terminal 2: Frontend on http://localhost:5173
+
+
+================================================================================
+SECTION 8: KEY ALGORITHMS AND FORMULAS
+================================================================================
+
+8.1 Q-TRI SCORE
+-----------------
+  QTRI = (PQC * 30) + (TLS * 20) + (PFS * 15) + (CertHealth * 15)
+         + (CipherStrength * 10) + (PolicyCompliance * 10)
+
+  Where each component is binary (0 or its weight).
+  Maximum: 100 | Minimum: 0
+
+8.2 MOSCA COUNTDOWN
+---------------------
+  Risk exists when: X + Y > Z
+
+  days_remaining = (Z - (X + Y)) * 365.25
+
+  X = 0.5 + (migration_complexity * 2.5)  [0.5 to 3.0 years]
+  Y = SENSITIVITY_SHELF_LIFE[tier]         [1 to 10 years]
+  Z = CRQC_TIMELINE                        [5 to 15 years]
+
+8.3 HNDL RISK SCORE
+---------------------
+  traffic_volume = base_volume[tier] + (hostname_length * 5)
+  months_captured = (today - Jan 1, 2023) / 30
+  total_gb_at_risk = traffic_volume * months_captured
+  hndl_risk_score = total_gb_at_risk * sensitivity_multiplier[tier]
+
+8.4 ENTERPRISE CYBER RATING
+------------------------------
+  rating = (average of all Q-TRI scores) * 10
+  Scale: 0 to 1000
+
+8.5 API RISK SCORE
+--------------------
+  api_risk_score = header_score - (owasp_findings_count * 10)
+  Clamped to [0, 100]
+
+  header_score = (security_headers_present / 7) * 100
+
+
+================================================================================
+SECTION 9: FRONTEND DEPENDENCIES AND THEIR PURPOSE
+================================================================================
+
+  axios        → HTTP client for REST API communication
+  recharts     → Chart library (BarChart, AreaChart for dashboard)
+  framer-motion → Animation library (entrance, hover, transition effects)
+  lucide-react  → SVG icon library (ShieldCheck, AlertTriangle, etc.)
+  react-force-graph-2d → D3-based force-directed graph visualization
+  tailwind-merge → Utility for merging Tailwind CSS classes
+  clsx         → Conditional CSS class joining utility
+
+  Dev dependencies:
+  @vitejs/plugin-react-swc → Vite plugin for fast React compilation
+  tailwindcss  → Utility-first CSS framework
+  autoprefixer → PostCSS plugin for vendor prefixes
+  eslint       → JavaScript linter
+
+
+================================================================================
+SECTION 10: BACKEND DEPENDENCIES AND THEIR PURPOSE
+================================================================================
+
+  fastapi          → Web framework (REST API, OpenAPI docs, async support)
+  uvicorn          → ASGI server (runs the FastAPI app)
+  sqlmodel         → ORM (SQLAlchemy + Pydantic hybrid)
+  sslyze           → SSL/TLS analysis library
+  dnspython        → DNS resolver library
+  requests         → HTTP client (for crt.sh, RSS feeds, API scanning)
+  python-jose      → JWT token handling (for future auth)
+  passlib          → Password hashing (for future auth)
+  pydantic-settings → Settings management
+  python-multipart  → Form data parsing
+  reportlab        → PDF generation
+  numpy            → Numerical processing
+  matplotlib       → Chart generation (for PDF reports)
+
+
+================================================================================
+SECTION 11: GLOSSARY OF TERMS
+================================================================================
+
+  CRQC    — Cryptographically Relevant Quantum Computer
+  Q-TRI   — Quantum Transition Readiness Index
+  MOSCA   — Migration Ownership and Security Cryptographic Assessment
+  HNDL    — Harvest Now, Decrypt Later
+  PQC     — Post-Quantum Cryptography
+  ML-KEM  — Module-Lattice Key Encapsulation Mechanism (FIPS 203)
+  ML-DSA  — Module-Lattice Digital Signature Algorithm (FIPS 204)
+  SLH-DSA — Stateless Hash-Based Digital Signature Algorithm (FIPS 205)
+  CBOM    — Cryptographic Bill of Materials
+  RBI CSF — Reserve Bank of India Cybersecurity Framework
+  TLS     — Transport Layer Security
+  PFS     — Perfect Forward Secrecy
+  ECDHE   — Elliptic Curve Diffie-Hellman Ephemeral
+  DHE     — Diffie-Hellman Ephemeral
+  OWASP   — Open Worldwide Application Security Project
+  CT      — Certificate Transparency
+  CNSA    — Commercial National Security Algorithm Suite
+  NIST    — National Institute of Standards and Technology
+  FIPS    — Federal Information Processing Standards
+
+
+================================================================================
+SECTION 12: SUMMARY — WHAT WE BUILT AND WHY
+================================================================================
+
+Q-Guardian is not just another vulnerability scanner. It is a targeted,
+quantum-threat-specific intelligence platform designed for an Indian
+public sector bank operating under strict RBI regulatory requirements.
+
+Every feature has a clear purpose:
+  - Discovery Engine answers: "WHAT do we have?"
+  - Q-TRI Scoring answers: "HOW ready is each asset?"
+  - Mosca Countdown answers: "WHEN does each asset become vulnerable?"
+  - HNDL Simulator answers: "HOW MUCH data is at risk RIGHT NOW?"
+  - API Scanner answers: "Are our APIs secured against known attacks?"
+  - Compliance Mapper answers: "Are we meeting RBI requirements?"
+  - Migration Playbooks answer: "WHAT EXACTLY should we change?"
+  - Board Brief answers: "How do we communicate this to leadership?"
+  - CBOM Export answers: "How do we share this with auditors?"
+  - Chatbot answers: "Can our team get instant answers?"
+  - Threat Intel answers: "What's happening in the quantum world?"
+
+The entire system runs locally, uses no external AI, stores data in a
+single SQLite file, and follows PNB's exact brand guidelines. It is
+designed to be deployed, demonstrated, and used as a production-grade
+tool for India's transition to quantum-safe banking infrastructure.
+
+================================================================================
+SECTION 13: BEGINNER & ENGINEERING STUDENT GUIDE (CONCEPTS & TECH STACK)
+================================================================================
+
+13.1 THE BIG PICTURE: WHAT IS Q-GUARDIAN V2?
+---------------------------------------------
+Imagine a major bank with a massive digital vault. Inside this vault are
+millions of transactions, credit card numbers, passwords, and private customer
+records.
+
+To keep hackers out, the bank locks everything behind digital padlocks (called
+Encryption or Cryptography). For the last 30 years, these padlocks have worked
+using complex mathematical puzzles that would take ordinary supercomputers
+millions of years to crack.
+
+However, a new technological revolution is coming: Quantum Computing. Quantum
+computers process math fundamentally differently from classical computers. Once
+a powerful enough quantum computer is built (known as a CRQC - Cryptographically
+Relevant Quantum Computer), it will solve those mathematical puzzles in minutes,
+unlocking every vault on the internet.
+
+What makes this worse is a threat called "Harvest Now, Decrypt Later" (HNDL):
+nation-state hackers are stealing encrypted bank data TODAY, storing it on giant
+hard drives, and waiting for quantum computers to come online in 5-10 years to
+decrypt it all retroactively.
+
+If a bank wants to upgrade its digital locks to Quantum-Safe Locks (Post-Quantum
+Cryptography - PQC), it runs into a massive problem: They don't even know where
+all their old locks are!
+
+Q-Guardian v2 acts as an Enterprise Security Radar & Quantum Risk Platform.
+It performs 4 main jobs:
+  1. Discovers every single cryptographic lock across 4 layers (Network, Code,
+     Containers, Binaries).
+  2. Exposes Lies & Divergence (e.g., when a configuration file claims to use
+     a modern lock, but the compiled software binary underneath still uses a
+     1990s weak lock).
+  3. Calculates a Quantum Clock (using mathematical models like Mosca's Theorem)
+     to tell the bank exactly how many years or months they have before their data
+     becomes compromised.
+  4. Generates a Migration Plan & Standards-Compliant Report (a CBOM -
+     Cryptographic Bill of Materials) so engineers know step-by-step how to swap out
+     weak algorithms for NIST-standard quantum-safe ones.
+
+
+13.2 CORE CYBERSECURITY & QUANTUM CONCEPTS
+-------------------------------------------
+1. Cryptography (The Locks & Keys):
+   - Symmetric Encryption (e.g., AES): Uses the SAME secret key to lock and unlock
+     data. Very fast, used for data at rest.
+   - Asymmetric Encryption / Public Key Cryptography (e.g., RSA, ECC): Uses TWO
+     keys (Public to lock, Private to unlock). Used for establishing secure HTTPS
+     connections.
+   - Hashing (e.g., MD5, SHA-1, SHA-256): One-way fingerprint function. MD5/SHA-1
+     are legacy/broken, SHA-256 is modern.
+
+2. The Quantum Threat & CRQC:
+   - CRQC: A quantum computer capable of breaking RSA/ECC via Shor's Algorithm.
+   - Shor's Algorithm: Factors large primes in polynomial time, breaking RSA/ECC.
+   - Grover's Algorithm: Speeds up brute-forcing symmetric keys, requiring migration
+     from AES-128 to AES-256.
+
+3. Harvest-Now-Decrypt-Later (HNDL):
+   - Adversaries record encrypted network traffic today, store it, and decrypt it
+     later using a CRQC.
+
+4. Post-Quantum Cryptography (PQC):
+   - Algorithms based on hard mathematical lattice problems that run on classical
+     hardware but resist quantum attacks.
+   - Standards: FIPS 203 (ML-KEM for key encapsulation), FIPS 204 (ML-DSA for
+     digital signatures), FIPS 205 (SLH-DSA).
+
+5. Mosca's Inequality (X + Y > Z):
+   - X = Migration Time, Y = Data Shelf Life, Z = Time to CRQC.
+   - If X + Y > Z, the organization's data will be exposed before migration completes.
+
+6. Declared vs. Actual Divergence:
+   - Discrepancy between manifest declarations (e.g., package.json or container OS)
+     and actual deployed binaries (e.g., legacy MD5 tables inside compiled ELF/PE).
+
+7. Cryptographic Bill of Materials (CBOM):
+   - Machine-readable specification (CycloneDX 1.6 / ECMA-424) detailing every
+     cryptographic primitive, algorithm, key size, and evidence location.
+
+
+13.3 ARCHITECTURE & TECHNICAL ENGINE BREAKDOWN
+-----------------------------------------------
+1. Backend Core:
+   - FastAPI & Uvicorn: High-performance async Python web framework and ASGI server.
+   - SQLModel & SQLite/PostgreSQL: Hybrid ORM (SQLAlchemy + Pydantic) for schema
+     validation and asset storage.
+   - Auth: JWT (python-jose) and password hashing (passlib/bcrypt).
+
+2. Multi-Source Discovery Vectors:
+   - Vector 1 (Network): discovery.py, active_discovery.py, port_scanner.py.
+     Queries crt.sh logs, active TLS handshakes, open TCP ports, OpenAPI specs.
+   - Vector 2 (Static Code): static_analysis.py, source_scanner.py.
+     AST/regex code parsing + Semgrep ruleset (OWASP crypto rules).
+   - Vector 3 (Containers): container_scanner.py.
+     Trivy + Syft SBOM container scanners matching PQC version floors.
+   - Vector 4 (Binaries): binary_scanner.py.
+     LIEF binary header parser + byte-level constant signature matching in .rodata
+     (ML-KEM NTT zetas, AES S-boxes, MD5 IVs).
+
+3. Reconciler & Risk Engines:
+   - Reconciler (reconciler.py): Cross-source correlation & divergence flags.
+   - Scoring (scoring.py): Q-TRI 0-100 asset rating with RBI S1-S5 weighting.
+   - Mosca & HNDL (mosca.py, hndl.py): Quantum countdown & exposure calculator.
+   - CBOM (cbom.py): CycloneDX 1.6 JSON & ReportLab PDF exporter.
+   - Local Offline RAG Chatbot (rag_advisor.py, chatbot.py): LangChain + FAISS
+     vector database running 100% offline without external AI API dependencies.
+
+4. Frontend Interface:
+   - React 18 + Vite 5: Fast UI application.
+   - TailwindCSS 3: Dark navy/cobalt enterprise theme system.
+   - Recharts & D3.js / react-force-graph-2d: Data charts & dynamic network topology.
+
+
+================================================================================
+                            END OF DOCUMENTATION
+================================================================================
+
